@@ -1,0 +1,138 @@
+{
+  "name": "vscode-todoer",
+  "displayName": "Todoer",
+  "description": "Manage todo lists inside markdown files with ease.",
+  "icon": "resources/logo-128x128.png",
+  "version": "1.1.0",
+  "license": "MIT",
+  "main": "out/extension.js",
+  "publisher": "skud",
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Todoer - Configuration",
+      "properties": {
+        "markdown.todo.symbols.bullet": {
+          "type": "string",
+          "enum": [
+            "*",
+            "-",
+            "+"
+          ],
+          "description": "Todo bullet symbol",
+          "default": "-"
+        },
+        "markdown.todo.symbols.done": {
+          "type": "string",
+          "enum": [
+            "x",
+            "X"
+          ],
+          "description": "Todo done symbol",
+          "default": "x"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "markdown.todo.toggleTodo",
+        "title": "Todoer: Toggle Todo"
+      },
+      {
+        "command": "markdown.todo.toggleDone",
+        "title": "Todoer: Toggle Done"
+      },
+      {
+        "command": "markdown.todo.archive",
+        "title": "Todoer: Toggle Archive"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "markdown.todo.toggleTodo",
+        "key": "Ctrl+Enter",
+        "mac": "Cmd+Enter",
+        "when": "editorTextFocus && editorLangId == markdown"
+      },
+      {
+        "command": "markdown.todo.toggleTodo",
+        "key": "Alt+Enter",
+        "when": "editorTextFocus && editorLangId == markdown"
+      },
+      {
+        "command": "markdown.todo.toggleDone",
+        "key": "Alt+d",
+        "when": "editorTextFocus && editorLangId == markdown"
+      },
+      {
+        "command": "markdown.todo.archive",
+        "key": "Alt+a",
+        "when": "editorTextFocus && editorLangId == markdown"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "markdown.todo.toggleTodo",
+          "when": "editorLangId == markdown"
+        },
+        {
+          "command": "markdown.todo.toggleDone",
+          "when": "editorLangId == markdown"
+        },
+        {
+          "command": "markdown.todo.archive",
+          "when": "editorLangId == markdown"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "rm -rf out && webpack --mode production",
+    "publish": "vsce publish && npm publish",
+    "compile": "webpack --mode development",
+    "compile:watch": "webpack --mode development --watch",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "bugs": {
+    "url": "https://github.com/skud/vscode-todoer/issues"
+  },
+  "author": {
+    "name": "Fabio Spampinato",
+    "email": "spampinabio@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skud/vscode-todoer.git"
+  },
+  "engines": {
+    "vscode": "^1.45.0"
+  },
+  "keywords": [
+    "vscode",
+    "vsc",
+    "extension",
+    "markdown",
+    "todo"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "dependencies": {
+    "@types/node": "^10.12.8",
+    "diff": "^3.5.0",
+    "lodash": "^4.17.11",
+    "standard": "^14.3.4"
+  },
+  "devDependencies": {
+    "ts-loader": "^5.2.1",
+    "typescript": "^3.0.3",
+    "vscode": "^1.1.21",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  }
+}
