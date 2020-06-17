@@ -75,17 +75,17 @@ function archive () {
 
   const editor = vscode.window.activeTextEditor;
   if (editor) {
-    var cursorline = editor.document.lineAt(editor.selection.active.line);
-    var textRange = new vscode.Range(cursorline.range.start, cursorline.range.end);
-    let todoItem = editor.document.getText(textRange);
+    let cursorline = editor.document.lineAt(editor.selection.active.line);
+    let deleteRange = new vscode.Range(cursorline.range.start, cursorline.rangeIncludingLineBreak.end);
+    let archiveRange = new vscode.Range(cursorline.range.start, cursorline.range.end);
+    let todoItem = editor.document.getText(archiveRange);
     
     let archiveIndex = editor.document.getText().indexOf('### Archive') + 11;
     let archivePos = editor.document.positionAt(archiveIndex);
 
     editor.edit(editBuilder => {
       editBuilder.insert(archivePos, `\n${ todoItem }`);
-      editBuilder.delete(textRange);
-      // editBuilder.delete(new vscode.Range(editor.selection.active-1, editor.selection.active))
+      editBuilder.delete(deleteRange);
     });
   }
 }
